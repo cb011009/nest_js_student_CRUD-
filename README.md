@@ -59,10 +59,11 @@ In our MongoDB database, there is a collection named students. Each document wit
 
 ```bash
 {
-  "_id": "664dad40daf31a9c24e289e6",
-  "name": "John Doe",
-  "age": 20,
-  "degree": "Computer Science"
+ "name": "Penny",
+    "age": 19,
+    "degree": "Game Design",
+    "_id": "665e05b6d3fc5fe66f831561",
+    "__v": 0
 }
 ```
 
