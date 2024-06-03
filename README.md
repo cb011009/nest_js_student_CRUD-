@@ -26,6 +26,8 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+This project is a Nest.js application which connects to a MongoDB database and utilizes username and password authentication for all endpoints. The data is validated before it is sent to the database to ensure data integrity and security.
+
 ## Installation
 
 1.Clone the Repository 
