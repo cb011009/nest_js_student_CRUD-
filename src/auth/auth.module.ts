@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { BasicStrategy } from './basic.strategy';
-import { ConfigModule } from '@nestjs/config';
+//import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
-  imports:[ConfigModule],
+ // imports:[ConfigModule],
   providers: [AuthService, BasicStrategy],
   exports: [AuthService],
 })

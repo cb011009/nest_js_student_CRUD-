@@ -8,15 +8,17 @@ import { ConfigModule } from '@nestjs/config';
 import {ConfigService} from '@nestjs/config';
 
 @Module({
-  imports: [ ConfigModule.forRoot({
-    isGlobal: true,
-  }),
+  imports: [ 
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
 
-  MongooseModule.forRootAsync({
+    MongooseModule.forRootAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => ({
       uri: configService.get<string>('MONGO_DB_CONNECTION_STRING'),
     }),
+
     inject: [ConfigService],
   }),
   StudentsModule,
