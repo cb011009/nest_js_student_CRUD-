@@ -4,12 +4,21 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { StudentsModule } from './student/student.module';
 import { AuthModule } from './auth/auth.module';
-
+import { ConfigModule } from '@nestjs/config';
+import {ConfigService} from '@nestjs/config';
 
 @Module({
-  imports: [ 
+  imports: [ ConfigModule.forRoot({
+    isGlobal: true,
+  }),
 
-  MongooseModule.forRoot('mongodb+srv://dulanmihimansa:test123@cluster0.koobcgz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'),
+  MongooseModule.forRootAsync({
+    imports: [ConfigModule],
+    useFactory: async (configService: ConfigService) => ({
+      uri: configService.get<string>('MONGO_DB_CONNECTION_STRING'),
+    }),
+    inject: [ConfigService],
+  }),
   StudentsModule,
   AuthModule,],
   controllers: [AppController],

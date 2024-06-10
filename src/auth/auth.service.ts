@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 
 @Injectable()
 export class AuthService {
-  private readonly username = 'john';
-  private readonly password = 'password123';
+ 
+  constructor(private readonly configService : ConfigService){}
 
-
+   private readonly  username = this.configService.get<string>('AUTH_USERNAME');
+   private readonly  password = this.configService.get<string>('AUTH_PASSWORD');
 
   async validateUser(username: string, password: string): Promise<any> {
     if (username === this.username && password === this.password) {
