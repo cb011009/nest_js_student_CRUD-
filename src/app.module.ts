@@ -7,10 +7,12 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import {ConfigService} from '@nestjs/config';
 
+
 @Module({
   imports: [ 
     ConfigModule.forRoot({
-      isGlobal: true,
+      isGlobal: true, 
+      envFilePath: '.env',
     }),
 
     MongooseModule.forRootAsync({

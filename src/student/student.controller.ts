@@ -1,21 +1,27 @@
 import { Controller, Get, Post, Patch, Delete, Body, UseGuards, Param, NotFoundException } from '@nestjs/common';
 import { StudentsService } from './student.service';
 import { Student} from 'src/schemas/student.schema';
-import { AuthGuard } from '@nestjs/passport'; 
 import { CreateStudentDto } from 'src/dtos/create-student'; 
 import { UpdateStudentDto } from 'src/dtos/update-student'; // Import CreateStudentDto
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { ROLES } from 'src/auth/roles.constants';
+import { Roles } from 'src/auth/roles.decorator';
 
 @Controller('students')
-@UseGuards(AuthGuard('basic')) 
+
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
- 
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(ROLES.ADMIN)
 @Get()
 async findAll(): Promise<Student[]> {
   return this.studentsService.findAll();
 }
 
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(ROLES.ADMIN)
 @Post()
   async create(@Body() createStudentDto: CreateStudentDto): Promise<Student> {
     return this.studentsService.create(createStudentDto);

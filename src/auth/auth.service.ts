@@ -1,20 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-
+import { JwtService } from '@nestjs/jwt';
+import { ROLES } from './roles.constants';
 
 @Injectable()
 export class AuthService {
- 
-  constructor(private readonly configService : ConfigService){}
+  constructor(private readonly jwtService: JwtService) {}
 
-   private readonly  username = this.configService.get<string>('AUTH_USERNAME');
-   private readonly  password = this.configService.get<string>('AUTH_PASSWORD');
+  generateJwtToken(user: any): string {
+    let roles = [ROLES.REGULAR_USER]; 
 
-  async validateUser(username: string, password: string): Promise<any> {
-    if (username === this.username && password === this.password) {
-      return { username: this.username }; 
+    if (user.email === 'dulanmihimansa@gmail.com') {
+      roles = [ROLES.ADMIN];
     }
-    return null;
+
+    const payload = {
+      sub: user.googleId,
+      email: user.email,
+      name: user.name,
+      roles,
+    };
+    return this.jwtService.sign(payload);
   }
 }
+
 

@@ -9,9 +9,9 @@ export class BasicStrategy extends PassportStrategy(PassportBasicStrategy) {
     super();
   }
 
-  async validate(username: string, password: string): Promise<any> {
+  /*async validate(username: string, password: string): Promise<any> {
     return await this.authService.validateUser(username, password);
-  }
+  }*/
 }
 
-//test 
+
